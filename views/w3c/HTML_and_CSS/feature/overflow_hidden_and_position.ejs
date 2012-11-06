@@ -1,0 +1,55 @@
+
+<!-- 
+	研究有着overflow hidden属性的盒子对其内部绝对、相对定位子元素超出部分的处理方式。
+	进而了解使用overflow hidden闭合浮动的缺点。
+
+	资料参考：http://www.iyunlu.com/view/css-xhtml/56.html
+-->
+
+<style type="text/css">
+	.container { overflow:hidden; padding:10px; height:200px; border:2px solid blue; margin:80px 50px 0; }
+	.innerbox { height:100px; border:1px solid #333; background:yellow; }
+
+	.relpos, .abspos { padding:20px; color:white; }
+	.relpos { position:relative; left:-20px; top:20px; background:gray; border:1px solid red; }
+	.abspos { position:absolute; background:green; border:1px solid red; }
+
+	.pr { position:relative; }
+	.ab1 { top:0; left:0; }
+	.ab2 { bottom:-10px; left:-10px; }
+	.ab3 { bottom:-10px; left:-30px; }
+</style>
+
+<div class="container">
+	overflow:hidden的父容器--box1
+	<div class="relpos">
+		我是relative定位的元素，可以看出，超出父元素box1的部分被隐藏了。（IE：未被隐藏）
+	</div>
+</div>
+
+<div class="container">
+	overflow:hidden的父容器--box2
+	<div class="abspos ab1">
+		我是在box2里的absolute定位的元素。虽然离父元素box2那么远，但还是没有被隐藏掉。因为我的containing box是根元素。
+	</div>
+</div>
+
+<div class="container pr">
+	overflow:hidden relative定位的父容器--box3
+	<div class="abspos ab2">
+		我是在box3里的absolute定位的元素。超出部分被父元素box3隐藏掉了。因为我的containing box就是box3。
+	</div>
+</div>
+
+<div class="container">
+	overflow:hidden的父容器--box4
+	<div class="innerbox pr">
+		我是box4中的一个小盒子--box4inner，relative定位。
+		<div class="abspos ab3">
+			我是在box4inner里的absolute定位的元素。超出部分被祖先元素box4隐藏掉了。因为我的containing box是box4inner，它在box4内部，受其限制。（IE：未被隐藏）
+		</div>
+	</div>
+</div>
+
+PS:关于containing box(包含块)<br />
+如果一个元素有"position:absolute"的定义，则其包含块由最近的拥有"position:absolute|relative|fixed"属性的祖先元素确定。

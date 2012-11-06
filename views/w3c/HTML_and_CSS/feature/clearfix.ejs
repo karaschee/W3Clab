@@ -1,0 +1,101 @@
+<!--  
+	常见clearfix测试
+	参考资料：http://www.iyunlu.com/view/css-xhtml/55.html
+
+	clearfix有这么多种，主要是在margin垂直重叠的不同上。
+	其实最主要的区别是看，content里的内容是否为空（clearfix_3例外），如果为空，margin重叠；有值，margin不重叠。
+	对于通过ZOOM产生layout的ie来说，不管哪种clearfix表现都一样。
+-->
+<style type="text/css">
+	.box_gray { width:800px; margin:50px auto; border:none; }
+	.main { margin:100px 0; }
+
+	/* normal */
+	/* 按参考资料，content不能为空，说是firefox 7以前的版本会产生空隙，待验证。 */
+	.clearfix_1:after{
+		content:"."; 
+		display:block; 
+		height:0; 
+		visibility:hidden; 
+		clear:both; 
+	}
+	.clearfix_1 { *zoom:1; }
+
+	/* advanced */
+	/* 用200B空白符作内容，可以省去visibility：hidden，因为它本身就不可见。 */
+	.clearfix_2:after{
+		content:"\200B"; 
+		display:block; 
+		height:0; 
+		clear:both; 
+	}
+	.clearfix_2 { *zoom:1; }
+
+	/* Nicolas Gallagher */ 
+	/* content为空,但table有点特殊。这是clearfix_4的精简方式*/
+	.clearfix_3:before,.clearfix_3:after{
+		content:"";
+		display:table;
+	}
+	.clearfix_3:after { clear:both; }
+	.clearfix_3 { zoom:1; }
+
+	/* tjkdesign */
+	/* 通过上下两个有内容的伪元素，阻止margin重叠，从而使其表现和ie相同 */
+	.clearfix_4:before,
+	.clearfix_4:after{
+		content: ".";    
+		display: block; 
+		height: 0;    
+		overflow: hidden;	
+	}
+	.clearfix_4:after { clear: both;}
+	.clearfix_4 { zoom: 1;} /* IE 5.5/6/7 */
+</style>
+<div class="box_gray mal clearfix_1">
+	<div class="l w200 box_red mvm">
+		float left<br />margin 30px 0
+	</div>
+	<div class="r w200 box_red mvm">
+		float right<br />margin 30px 0
+	</div>
+	<div class="main">
+		main content <br /> margin:100px 0;
+	</div>
+</div>
+
+<div class="box_gray mal clearfix_2">
+	<div class="l w200 box_red mvm">
+		float left<br />margin 30px 0
+	</div>
+	<div class="r w200 box_red mvm">
+		float right<br />margin 30px 0
+	</div>
+	<div class="main">
+		main content <br /> margin:100px 0;
+	</div>
+</div>
+
+<div class="box_gray mal clearfix_3">
+	<div class="l w200 box_red mvm">
+		float left<br />margin 30px 0
+	</div>
+	<div class="r w200 box_red mvm">
+		float right<br />margin 30px 0
+	</div>
+	<div class="main">
+		main content <br /> margin:100px 0;
+	</div>
+</div>
+
+<div class="box_gray mal clearfix_4">
+	<div class="l w200 box_red mvm">
+		float left<br />margin 30px 0
+	</div>
+	<div class="r w200 box_red mvm">
+		float right<br />margin 30px 0
+	</div>
+	<div class="main">
+		main content <br />margin:100px 0;
+	</div>
+</div>

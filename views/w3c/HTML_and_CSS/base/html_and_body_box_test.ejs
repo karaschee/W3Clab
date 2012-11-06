@@ -1,0 +1,42 @@
+<!-- 
+前言：
+对于ie6，注释千万不能放在DOCTYPE之前，会使DOCTYPE失效，而无法激活IE的标准模式。
+本测试只针对IE6的标准模式。
+
+
+一些测试结论:
+
+IE6:
+html有默认100%高度，body没有。
+margin对html元素无效。
+滚动条出现在html标签上，这个结论可以通过滚动条一直在html边框内观察出，而且html的overflow值对其有效。
+当div的高为3000px的时候，html元素也不会被撑大（body会），width+padding+border加起来始终和window同高。从某种程度来说，IE6中html的滚动条出现方式与普通元素一样，更容易理解。
+
+chrome：
+margin padding 对 html body 皆有效。
+html也没有默认高度。
+滚动条从视觉上看与html无关，因为在其border外面。但是！通过修改html的overflow属性发现，这个滚动动条确实是属于html的。
+div为3000px时，html与body都被撑大了。注意，这是很有趣的一点，html的高被div撑大，足以容纳页面所有内容，但却还是有滚动条出现。这就是html的特殊之处。
+
+总结：对于ie6和chrome，滚动条都在html上。
+
+背景色观察：
+window的背景色 = html的背景色 || body的背景色
+window的背景色与html和body的大小无关（铺满整个窗口）。
+html有背景色时，body与普通元素一样显示自己的背景色。
+
+-->
+<style type="text/css">
+	/*html height*/
+	/*html { background:#eee; border:30px solid red; }
+	body { background:#069; margin:100px; padding:50px; border:30px solid #093;}*/
+
+	/*margin html*/
+	html { background:#eee; margin:100px; padding:50px; border:30px solid red; overflow-y:scroll; }
+	body { background:#069; margin:100px; padding:50px; border:30px solid #093; overflow:scroll;}
+
+	/*div on off*/
+	div { height:3000px; }
+</style>
+
+<div>a</div>

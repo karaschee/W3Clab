@@ -1,0 +1,39 @@
+
+<style type="text/css">
+	.lh100 { line-height:100px; }
+	.lh150p { line-height:150%; }
+	.lh1d5 { line-height:1.5; }
+
+	.box_gray { margin-bottom:50px; }
+	p span { background: yellow; }
+	div p { background: green; color:#fff; }
+</style>
+
+<p class="box_gray lh100">
+</p>
+
+<p class="box_gray lh100">
+	&nbsp;
+</p>
+
+<p class="box_gray lh100">
+	<span>这是一个普通的span，这是行高100px的效果 <br> 这是第二行</span>
+</p>
+
+<p class="box_gray lh100">
+	<span class="dib lh14 f10">这是一个inline-block、行高14px的span<br> 这是第二行</span>普通文字
+</p>
+
+<div class="box_gray f24 lh1d5">
+	div的行高为1.5,字体大小24px，实际行高为 24px*1.5=36px
+	<p class="f10">
+		p的字体大小为10px，继承的行高为 10px*1.5=15px
+	</p>
+</div>
+
+<div class="box_gray f24 lh150p">
+	div的行高为150%,字体大小24px，实际行高为 24px*150%=36px
+	<p class="f10">
+		p的字体大小为10px，继承的行高为 24px*150%=36px
+	</p>
+</div>

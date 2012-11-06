@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>W3C标准测试 - <%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/prepare.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script> 
+  </head>
+  <body>
+    <div class="header">
+      W3C标准测试 - <span class="b"><%= title %></span>
+      <% if(!noBack){ %>
+      <a href="/" class="r f12">回到主页</a>
+      <% } %>
+    </div>
+
+    <%- body %>
+  </body>
+</html>

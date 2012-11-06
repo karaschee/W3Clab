@@ -1,0 +1,42 @@
+<!--  
+	主题：子元素和父元素的margin垂直重叠是否受它们之间的“空”元素影响。
+-->
+
+<style type="text/css">
+	.outer { margin:100px; background:gray; }
+	.inner { margin:30px; border:1px solid blue; }
+	.bar { background:green; }
+
+	.hd { visibility:hidden; }
+	.h0 { height:0; }
+	.f0 { font-size:0; }
+</style>
+
+
+<div class="outer">
+	<div class="inner"> margin:30px; 上下重叠 </div>
+</div>
+<div class="outer">
+	<div class="inner"> 
+		margin:30px;  <br>
+		虽然我下面有个div--bar，但因为它没有内容，没有border\padding\width\height，所以它是阻止不了我的。上下重叠
+	</div>
+	<div class="bar"></div>
+</div>
+
+<div class="outer">
+	<div class="inner"> 
+		margin:30px;  <br>
+		margin top重叠
+	</div>
+	<div class="bar">我是bar，有内容了，阻止了上面margin的重叠。</div>
+</div>
+
+<div class="outer">
+	<div class="inner"> 
+		margin:30px;  <br>
+		margin top重叠 <br>
+		下面的bar有内容，但是被加上了hd\h0\f0诸多限制。可它照样阻止了margin重叠。
+	</div>
+	<div class="bar f0 hd h0">....</div>
+</div>

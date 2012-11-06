@@ -1,0 +1,176 @@
+
+<style type="text/css">
+	.row { margin:20px 0; white-space:nowrap; }
+	.item{
+		display:inline-block; 
+		width:200px; 
+		height:50px; 
+		border:1px solid #ccc; 
+		text-align:center; 
+		line-height:50px; 
+		font-size:12px; 
+		letter-spacing:normal;
+		word-spacing:normal;
+	}
+	
+	.inline_forie { *display:inline; *zoom:1; }
+	.text_edit { letter-spacing:-4px; word-spacing:-1px; }
+</style>
+
+<h1>inline-block跨浏览器测试</h1>
+<p>参考资料：<a href="http://ued.taobao.com/blog/2012/08/15/inline-block/">inline-block的前世今生（作者：一丝）</a></p>
+<h2>1 块级元素、内联元素</h2>
+<div class="row">
+	<span class="item">span</span>
+	<span class="item">span</span>
+	<span class="item">span</span>
+	<span class="item">span</span>
+	<span class="item">span</span>
+</div>
+
+<div class="row">
+	<ul>
+		<li class="item">li</li>
+		<li class="item">li</li>
+		<li class="item">li</li>
+		<li class="item">li</li>
+		<li class="item">li</li>
+	</ul>
+</div>
+
+<div class="alert_tip">
+	在IE6中，对比inline-block应用到block元素和inline元素上时有什么不同。<br>
+	IE6 中 block 元素即使触发了 hasLayout 也不能具有 inline-block 元素不换行的特性。想要 block 元素支持 inline-block 元素的特性，我们可以这样做：<br>
+	display:inline; （不换行）<br>
+	zoom:1 （触发layout）
+</div>
+
+<p>如下所示（IE6）</p>
+<div class="row">
+	<ul>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+	</ul>
+</div>
+
+<h2>2 inline-block元素之间的空隙</h2>
+<p>
+	观察上米娜两个实例可知，不论是标准浏览器还是ie浏览器，元素之间都出现了空隙。
+</p>
+<div class="alert_tip">
+	ie浏览器中，block元素inline-block化后，不会出现空隙。
+</div>
+<p>
+	这时由于空白字符（空格、制表符、换行符）引起的。<br>
+	换行符也受font-size控制，不信可以改改font-size的大小试试。当size值为0时，空隙就消失了。
+</p>
+<div class="alert_tip">
+	但是，font-size:0 的支持情况有些特殊，下面分析。
+</div>
+
+<h2>3 font-size:0</h2>
+<p>具体可去 <a href="font-size.html">字体大小测试</a> 测试</p>
+<h3>1) Chrome</h3>
+<div class="quote">
+	原作者：低版本的 chrome 浏览器为了不让文字过小不利于阅读，默认是不支持 font-size:0 的，还好我们有 -webkit-text-size-adjust 这个私有属性来控制，当设为 none 时就支持字体大小为 0 了。我已经记不清楚 chrome 从哪个版本开始支持 font-size:0 了，反正我用 chrome 19 是支持了（有知道的朋友，烦请告诉一丝一声，最好有官方更新说明）。但是，-webkit-text-size-adjust:none; 会直接导致页面文字无法缩放，这对于用户来说显然是不友好的。所以-webkit-text-size-adjust:none; 一定要慎用，确保使用的地方没有大面积的文字。
+</div>
+<p>
+	用chrome 19测试，chrome中，最小字体只能设置为12px，小于12px的当做12px处理。但是可以设置0px（0），文字会直接消失。<br>
+	至于 <strong>-webkit-text-size-adjust</strong> 的作用就是让浏览器可以取1px~11px的值（不作限制）。
+</p>
+
+<h3>2) Safari</h3>
+<div class="quote">
+	Safari 5 依旧不支持 font-size:0 ，不过相信这些浏览器厂商都意识到了这个问题，在 Mac 平台最新的 Safari 6 已经很好的支持 font-size:0 了。
+</div>
+<p class="delete">
+	经我测试，windows下的safari 5.1.7支持font-size:0，也支持1~11px所有。但是设置font-size:0后仍然会有空隙（什么原因呢？）。
+</p>
+<p>
+	之前测试错误，windows下的safari 5.1.7的font-size:0会将文字隐藏，但是仍占据位置（而且会占用更多），类似于visibility:hidden的效果。
+</p>
+
+<h3>3) Firefox and Opera</h3>
+<div class="quote">
+	经测试，Firefox12，Opera 10 ，这次表现不错，支持 font-size:0。
+</div>
+<p>
+	对于小于12px的测试：<br>
+	firefox 15.0.1：完美支持。<br>
+	opera 12.02有点奇怪，有几个像素表现出来的大小是相等的：<br>
+	9px、10px、11px == 12px <br>
+	1px == 2px
+</p>
+
+<h3>4) IE</h3>
+<div class="quote">
+	<ul class="list">
+		<li>IE8 以上支持 font-size:0;</li>
+		<li>IE6、7 inline 元素 inline-block 后设置 font-size:0 始终有 1px 的空隙。</li>
+	</ul>
+</div>
+<p>
+	我的测试结果：<br>
+	ie6:字体会变得很小很小，几个小点，但是不会隐藏掉。<br>
+	ie8:完美隐藏.
+</p>
+<h2>4 改进</h2>
+<p>在加入font-size：0后的样子如下：(目前就IE6 7和safari 5有问题)</p>
+<div class="row f0 l">
+	<ul>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+	</ul>
+</div>
+<div class="cl"></div>
+
+<div class="row f0 l">
+	<span class="item inline_forie">span</span>
+	<span class="item inline_forie">span</span>
+	<span class="item inline_forie">span</span>
+	<span class="item inline_forie">span</span>
+	<span class="item inline_forie">span</span>
+</div>
+<div class="cl"></div>
+
+<p>以下是li元素之间没有空白符的情况（font-size:14px;）</p>
+<div class="row l">
+	<ul>
+		<li class="item inline_forie">li</li><li class="item inline_forie">
+		li</li><li class="item inline_forie">
+		li</li><li class="item inline_forie">
+		li</li><li class="item inline_forie">li</li>
+	</ul>
+</div>
+<div class="cl"></div>
+
+<div class="alert_tip">
+	以下是改进后的最终版(font-size:0;letter-spacing:-4px;word-spacing:-1px;)
+</div>
+<div class="row f0 l text_edit">
+	<ul>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+		<li class="item inline_forie">li</li>
+	</ul>
+</div>
+
+<div class="cl"></div>
+
+<p>那么现在开始改进。原文章的一些测试有些小问题。参考数据：
+	<a href="http://www.iyunlu.com/view/css-xhtml/58.html">inline-block空隙--letter-spacing与字体大小/字体关系数据表</a> </p>
+<p class="delete">根据本网页字体设置，除opera外inline-block之间默认空隙应该为-4px(刚开始有点迷惑，其实是值为0时元素之间有一定空隙，当为-4px时，就紧挨在一起了)</p>
+<p>为了观察对wrapper宽度的影响，将其设为float：left</p>
+<h3>1) letter-spacing </h3>
+<h4>Firefox 15.0.1</h4>
+<p>跟原文章观察到的不同...</p>
+<h4>Opera 12.02</h4>
+<p>letter-spacing对inline-block无效。不管怎么改变值，空隙都不变。wrapper的宽度也不会变</p>

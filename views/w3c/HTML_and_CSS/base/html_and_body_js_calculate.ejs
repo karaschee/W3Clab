@@ -1,0 +1,99 @@
+<!-- 
+
+chrome:
+引用之前测试结论：
+“滚动条从视觉上看与html无关，因为在其border外面。但是！给html添加overflow：scroll属性发现，这个滚动动条确实是属于html的。”
+在这个时候，可以将html元素看作是页面得以滚动的容器（近似的看做窗口本身）。
+这些信息是不能通过window和document来取得的。
+比如，窗口的clientHeight和scrollHeight值都得通过html来获取。而body就不行，它的scrollTop为0。
+
+从js的角度来看，html元素是获取页面滚动信息的手段。这也再次证明了页面滚动条=html滚动条（就算在其border外面）。
+但是，jquery的封装过的方法不同，通过 window和document 也能取得scrollTop等的值，body还是取不到。
+具体的对应关系（$todo）
+
+
+ie6:
+$todo
+
+-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script> 
+<style type="text/css">
+	html {  }
+	body { height:3000px; }
+</style>
+<script type="text/javascript">
+	function test(){
+		var hst = $("html").scrollTop();
+		var bst = $("body").scrollTop();
+		var dst = $(document).scrollTop();
+		var wst = $(window).scrollTop();
+
+		var hh = $("html").height();
+		var bh = $("body").height();
+		var dh = $(document).height();
+		var wh = $(window).height();
+
+		console.log("---jquery result---");
+
+		console.log("html_scrollTop:"+hst);
+		console.log("body_scrollTop:"+bst);
+		console.log("document_scrollTop:"+dst);
+		console.log("window_scrollTop:"+wst);
+
+		console.log("html:"+hh);
+		console.log("body:"+bh);
+		console.log("document:"+dh);
+		console.log("window:"+wh);
+
+		// javascript
+		var h_j_st = $("html")[0].scrollTop;
+		var b_j_st = $("body")[0].scrollTop;
+		var d_j_st = document.scrollTop;
+		var w_j_st = $(window)[0].scrollTop;
+
+		var h_j_h = $("html")[0].height;
+		var b_j_h = $("body")[0].height;
+		var d_j_h = document.height;
+		var w_j_h = $(window)[0].height;
+
+		var h_j_sh = $("html")[0].scrollHeight;
+		var b_j_sh = $("body")[0].scrollHeight;
+		var d_j_sh = document.scrollHeight;
+		var w_j_sh = $(window)[0].scrollHeight;
+
+		var h_j_ch = $("html")[0].clientHeight;
+		var b_j_ch = $("body")[0].clientHeight;
+		var d_j_ch = document.clientHeight;
+		var w_j_ch = $(window)[0].clientHeight;
+
+		console.log("");
+		console.log("---original javascript result---");
+
+		console.log("---scrollTop");
+		console.log("html_scrollTop:"+h_j_st);
+		console.log("body_scrollTop:"+b_j_st);
+		console.log("document_scrollTop:"+d_j_st);
+		console.log("window_scrollTop:"+w_j_st);
+
+		console.log("---height");
+		console.log("html_height:"+h_j_h);
+		console.log("body_height:"+b_j_h);
+		console.log("document_height:"+d_j_h);
+		console.log("window_height:"+w_j_h);				
+
+		console.log("---scrollHeight");
+		console.log("html_scrollHeight:"+h_j_sh);
+		console.log("body_scrollHeight:"+b_j_sh);
+		console.log("document_scrollHeight:"+d_j_sh);
+		console.log("window_scrollHeight:"+w_j_sh);
+
+		console.log("---clientHeight");
+		console.log("html_clientHeight:"+h_j_ch);
+		console.log("body_clientHeight:"+b_j_ch);
+		console.log("document_clientHeight:"+d_j_ch);
+		console.log("window_clientHeight:"+w_j_ch);
+	}
+	$(function(){
+		
+	});
+</script>

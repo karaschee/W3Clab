@@ -1,0 +1,96 @@
+
+<style type="text/css">
+	.ls { letter-spacing:0; }
+	.box_gray { white-space:nowrap; }
+</style>
+
+<h1>letter-spacing</h1>
+<p>请修改ls的值来观察以下实例的变化。</p>
+<div class="alert_tip">
+	letter-spacing : normal | length （检索或设置对象中的文字之间的间隔）
+</div>
+<h2>1 对空白元素的影响</h2>
+
+<div class="egbox">
+	<p>先试试图文混排</p>
+	<div class="box_gray ls">
+		测试字体 测试字体。test text test text<img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif"><img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif"> <img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif"> test 测试。
+	</div>
+	<p>
+		纯文本（inline）
+	</p>
+	<div class="box_gray ls">
+		测试字体te测试st（文字之间没有字符）<br>
+		测试字体<span class="f0">to hidden</span>te测试st（文字之间字符作f0处理）<br>
+		测试字体to hiddente测试st（文字之间字符未作处理）
+	</div>
+	<p>
+		纯图片（inline-block）
+	</p>
+	<div class="box_gray ls">
+		<img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif"><img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif">（图片之间没有字符）<br>
+		<img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif"><span class="f0">to hidden</span><img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif">（图片之间字符作f0处理）<br>
+		<img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif">to hidden<img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif">（图片之间字符未作处理）
+	</div>
+</div>
+
+<div class="alert_tip">
+	<p>结论：</p>
+	<p><strong>letter-spacing对于inline-block元素无效（包括ie6），但是对于普通文字和空白符等line元素有效。</strong>所以当只有ib元素存在时，letter-spacing对其完全无效。</p>
+	<p>以下是有line元素时的结果：</p>
+	<p>safari 5.1.7(win) <br> 用f0处理的字符会隐藏，但仍然占位，每个都会产生空隙，和未作处理表现一样。</p>
+	<p>firefox 15.0.1 <br> 用f0处理的字符会隐藏，且不占位，像是被删掉了一样。但是它仍会产生空隙。如果是多个f0字符的话，每一个都有自己的空隙</p>
+	<p>opera 12.02 <br> 用f0处理的字符会隐藏、不占位，而且不会长生空隙，就像不存在一样。</p>
+	<p>chrome 19 <br> 和opera表现一样。 </p>
+	<p>ie 8 <br> 和opera表现一样。 </p>
+	<p>ie 6 <br> 用f0处理的字符不会隐藏，会变成很小的点，且会产生间隙。 </p>
+</div>
+
+<h2>2 负值的时候</h2>
+<p>为了测试调整负值后对宽度的影响，所以讲wrapper设为float了</p>
+<div class="egbox">
+	<p>图片（无空白符）</p>
+	<div class="box_gray r ls">
+		<img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif"><img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif">
+	</div>
+	<div class="cl"></div>
+
+	<p>图片（有空白符）</p>
+	<div class="box_gray r ls">
+		<img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif"> <img width="270" height="129" src="http://www.baidu.com/img/baidu_sylogo1.gif">
+	</div>
+	<div class="cl"></div>
+	<p>文字</p>
+	<div class="box_gray r ls">
+		测试字体te测试st 测试 测试
+	</div>
+	<div class="cl"></div>
+</div>
+<div class="alert_tip">
+	<p>结论：</p>
+	<p>对只有ib元素仍然无效</p>
+	<p>以下是图片加空白符和纯文字时的情况（绝对值越来越大）：</p>
+	<p>safari 5.1.7(win) <br> 
+		表现与chrome一样。
+	</p>
+	<p>firefox 15.0.1 <br> 
+		图片+空白符：图片间间距逐渐缩小直到贴合(-4px)，之后宽度继续缩小，图片跑到容器外部，但图片不重合。
+		文字：前期逐渐重合，完全重合之后，文字会全部跑到容器左边去，开始反向拉开间隙；宽度越来越小，直到0并保持不变。
+	</p>
+	<p>opera 12.02 <br> 
+		图片+空白符：图片间间距逐渐缩小，直到间隔1px的时候（-3px），之后恢复原样<br>
+		文字：前期逐渐重合，宽度变窄；完全重合之后(-13px)，文字消失(-14px)，之后恢复原样。
+	</p>
+	<p>chrome 19 <br> 
+		图片+空白符：图片间间距逐渐缩小直到贴合(-4px)，之后宽度不变，表现和纯图片一样<br>
+		文字：前期逐渐重合，宽度变窄；重合到一定程度之后(-11px)，文字消失(-12px)，之后宽度反而会逐渐增大。
+	</p>
+	<p>ie 8 <br> 
+		图片+空白符：图片间间距逐渐缩小直到贴合（-4px），之后宽度不变，表现和纯图片一样<br>
+		文字：前期逐渐重合，宽度变窄；完全重合之后(-13px)，文字消失(-14px)，宽度短至一个空格大小。之后一直保持此状态。
+	</p>
+	<p>ie 6 <br> 
+		图片+空白符：宽度变窄；比较特殊的是，图片也会慢慢重合。
+		文字：前期逐渐重合，宽度变窄；完全重合之后(-10px)，文字消失(-11px)，宽度越来越小，直到0并保持不变。
+	</p>
+</div>

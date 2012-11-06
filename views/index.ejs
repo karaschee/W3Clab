@@ -1,0 +1,23 @@
+
+<div class="post_list">
+</div>
+
+<script type="text/javascript">
+  var posts = <%- posts %>;
+
+  function userlist(list){
+    var s = "";
+    for(var i=0; i<list.length; i++){
+      var item = list[i];
+      if(item.type === "dir"){
+        s += "<li><div class='dir_title'>+" + item.title + "</div>" + userlist(item.files) + "</li>";
+      }else {
+        s += "<li><a href='"+ item.path +"'>" + item.title + "</a></li>"
+      }
+    }
+    return "<ul>" + s + "</ul>"
+  }
+
+  $(".post_list").html( userlist(posts) );
+
+</script>
