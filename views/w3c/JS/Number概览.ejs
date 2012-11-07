@@ -1,0 +1,89 @@
+<h1>一些关于数字的测试</h1>
+
+<h2>属性</h2>
+<table class="table_normal">
+  <tr>
+    <th>属性</th>
+    <th>值</th>
+  </tr>
+  <tr>
+    <td><strong>Number.MAX_VALUE</strong></td>
+    <td><%= Number.MAX_VALUE %></td>
+  </tr>
+  <tr>
+    <td><strong>Number.MIN_VALUE</strong></td>
+    <td><%= Number.MIN_VALUE %></td>
+  </tr>
+  <tr>
+    <td><strong>Number.POSITIVE_INFINITY</strong></td>
+    <td><%= Number.POSITIVE_INFINITY %></td>
+  </tr>
+  <tr>
+    <td><strong>Number.NEGATIVE_INFINITY</strong></td>
+    <td><%= Number.NEGATIVE_INFINITY %></td>
+  </tr>
+</table>
+
+<h2>赋值测试</h2>
+<table class="table_normal">
+  <tr>
+    <th>code</th>
+    <th>result a</th>
+  </tr>
+  <tr>
+    <td><strong>var a = 0000012;</strong></td>
+    <td><%= a = 0000012 %></td>
+  </tr>
+  <tr>
+    <td><strong>var a = 0000xa;</strong></td>
+    <td>Error</td>
+  </tr>
+  <tr>
+    <td><strong>var a = 0x001a;</strong></td>
+    <td><%= a = 0x001a %></td>
+  </tr>
+  <tr>
+    <td><strong>var a = 0xa.1;</strong></td>
+    <td>Error</td>
+  </tr>
+</table>
+
+<h2>数字转换</h2>
+<% var testdata = ["0xa", "0xa.12", "012", "012.1", "123.123.23", "12awe", "0xaerr"]; %>
+<table class="table_normal">
+  <tr>
+    <th>String</th>
+    <th>parseInt</th>
+    <th>parseFloat</th>
+    <th>Number</th>
+  </tr>
+<% for(var i = testdata.length-1; i>=0; i--){ %>
+  <% var data = testdata[i] %>
+  <tr>
+    <td><strong><%= data %></strong></td>
+    <td><%= parseInt(data) %></td>
+    <td><%= parseFloat(data) %></td>
+    <td><%= Number(data) %></td>
+  </tr>
+<% } %>
+</table>
+
+<h2>Number类的一些方法</h2>
+<% var testdata = [99,120,12.21,0xa]; %>
+<table class="table_normal">
+  <tr>
+    <th>Number</th>
+    <th>toFixed(2)</th>
+    <th>toExponential(2)</th>
+    <th>toPrecision(2)</th>
+  </tr>
+<% for(var i = testdata.length-1; i>=0; i--){ %>
+  <% var data = testdata[i] %>
+  <tr>
+    <td><strong><%= data %></strong></td>
+    <td><%= data.toFixed(2) %></td>
+    <td><%= data.toExponential(2) %></td>
+    <td><%= data.toPrecision(2) %></td>
+  </tr>
+<% } %>
+</table>

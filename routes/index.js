@@ -13,7 +13,8 @@ exports.index = function(req, res){
    
       // 不是文件夹就是文件
       if (!stat.isDirectory()) {
-        var fileData = { type:"file", title:file.replace(/\.jade/g,""), path:"posts/" + pathname.replace(/^views\//g,"") }
+        var filename = nameTrim(file);
+        var fileData = { type:"file", title:filename, path:"posts/" + pathname.replace(/^views\//g,"") }
         result.push(fileData)
       // 递归自身
       } else {
@@ -34,5 +35,17 @@ exports.index = function(req, res){
 exports.posts = function(req, res){
   var arr = req.params[0].split("/");
   var title = arr[arr.length-1];
-  res.render(req.params[0], { title: title, noBack: false, layout:"layout" });
+  var filename = nameTrim(title);
+  res.render(req.params[0], { title: filename, noBack: false, layout:"layout" });
+}
+
+function nameTrim(name){
+  var namearr = name.split(".");
+  if(namearr.length > 1){
+    namearr.pop();
+    var filename = namearr.join(".");
+  }else {
+    filename = name;
+  }
+  return filename;
 }

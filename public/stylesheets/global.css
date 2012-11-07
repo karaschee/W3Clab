@@ -124,6 +124,36 @@ p { margin:15px 0; }
 
 .delete { text-decoration:line-through; }
 
+/* Normal Table
+   ========================================================================== */
+
+.table_normal{
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2em;
+  color: #303030;
+  font-size: 13px;
+}
+.table_normal caption{
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  line-height: 30px;
+  color: #bb0000;
+}
+.table_normal th, .table_normal td{
+  border: 1px solid #ddd;
+  padding: 7px 12px;
+}
+.table_normal th{
+  background-color: #f2f5fa;
+}
+
+/* td common width */
+.tdw20p { width:20%; }
+.tdw30p { width:30%; }
+
 
 
 
@@ -133,7 +163,8 @@ p { margin:15px 0; }
    Layout CSS
    ========================================================================== */
 
-.header { padding-bottom:10px; margin-bottom:10px; border-bottom:1px solid #ddd; font-size:18px; }
+.header { margin-bottom:25px; border-bottom:3px solid #606060; font-size:18px; line-height:25px; }
+.header .title { display:inline-block; background: #606060; color:#fff; padding:5px 10px; }
 
 .post_list ul { padding-left:2em; }
 .post_list .dir_title { color:#BF381A; }
