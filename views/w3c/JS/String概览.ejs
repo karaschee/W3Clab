@@ -1,0 +1,42 @@
+<h2>方法 - slice、substring</h2>
+<p>测试数据 "abcdefg"</p>
+<table class="table_normal">
+  <% var test1 = "abcdefg" %>
+  <tr>
+    <th>参数</th>
+    <th>slice</th>
+    <th>substring</th>
+    <th>说明</th>
+  </tr>
+  <tr>
+    <td>0,3</td>
+    <td><%= test1.slice(0,3) %></td>
+    <td><%= test1.substring(0,3) %></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>3,0</td>
+    <td><%= test1.slice(3,0) %></td>
+    <td><%= test1.substring(3,0) %></td>
+    <td>
+      对于substring来说，会将参数按从小到大排列，然后求值,substring(3,0) === substring(0,3)<br>
+      slice则直接返回空字符串
+    </td>
+  </tr>
+  <tr>
+    <td>2,-1</td>
+    <td><%= test1.slice(2,-1) %></td>
+    <td><%= test1.substring(2,-1) %></td>
+    <td>
+      substring将小于0的参数转化为0，即substring(2,-1) -> substring(2,0) -> substring(0,2)
+      <br>
+      slice(2,-1) -> slice(2,6); 6 = -1 + 7(字符串长度)
+    </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td><%= test1.slice(2) %></td>
+    <td><%= test1.substring(2) %></td>
+    <td></td>
+  </tr>
+</table>
