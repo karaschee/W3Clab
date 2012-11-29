@@ -1,0 +1,65 @@
+<h2>按理论分类</h2>
+<table class="table_normal">
+  <tr>
+    <th colspan="5">原始类型</th>
+    <th colspan="2">引用类型</th>
+  </tr>
+  <tr>
+    <td>Number</td>
+    <td>Boolean</td>
+    <td>String</td>
+    <td>undefined</td>
+    <td>null</td>
+    <td>Array、Date</td>
+    <td>其余Object</td>
+  </tr>
+</table>
+
+<h2>按typeof分类</h2>
+<table class="table_normal">
+  <tr>
+    <th>typeof的值</th>
+    <th>number</th>
+    <th>string</th>
+    <th>boolean</th>
+    <th>undefined</th>
+    <th>object</th>
+  </tr>
+  <tr>
+    <th>说明</th>
+    <td>数字原始值</td>
+    <td>字符串原始值</td>
+    <td>bool类型原始值</td>
+    <td>undefined</td>
+    <td>null、Array、Date及其它对象</td>
+  </tr>
+  <tr>
+    <th>例子</th>
+    <td>1 \ 2 \ 0xa</td>
+    <td>"1213"</td>
+    <td>false</td>
+    <td>undefined</td>
+    <td>null \ {a:1} \ [1,2] \ new Number(1)</td>
+  </tr>
+</table>
+
+<h2>解读</h2>
+<p>
+  对于5种原始类型，其中Number、Boolean以及String 3种都有其相应的引用。可称它们为<strong>“伪对象”</strong>，其原始值照样可以调用自身的方法。<br>
+  如下关系表:
+</p>
+<table class="table_normal">
+  <tr>
+    <th>引用类型的原始值</th>
+    <th>原始类型的引用对象</th>
+  </tr>
+  <tr>
+    <td>var numN = 23 (typeof:number)</td>
+    <td>var numO = new Number(23) (typeof:object)</td>
+  </tr>
+</table>
+<div class="alert_tip">
+  1.numO.valueOf() === numN 相应转换关系。<br>
+  2.numN.toFixed() “伪对象”可以调用相应的方法。<br>
+  3.numN instanceOf Number === false ; numO instanceOf Number === true。伪对象无法通过instanceOf的验证。
+</div>

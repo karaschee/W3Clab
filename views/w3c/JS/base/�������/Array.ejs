@@ -1,0 +1,39 @@
+<h2>方法 - splice</h2>
+<div class="alert_tip">
+  测试数据：["a","b","c","d","e","f"]
+</div>
+<% 
+function resetArr(){
+  testArr = ["a","b","c","d","e","f"] 
+}
+resetArr();
+%>
+
+<table class="table_normal">
+  <tr>
+    <th>说明</th>
+    <th>操作</th>
+    <th>return</th>
+    <th>操作后的testArr</th>
+  </tr>
+  <tr>
+    <td>删除（要删除的第一项位置，删除个数）</td>
+    <td>testArr.splice(0,2)</td>
+    <td><%= testArr.splice(0,2) %></td>
+    <td><%= testArr %></td>
+  </tr>
+  <% resetArr(); %>
+  <tr>
+    <td>替换不删除（起始位置，删除的个数，插入的项+）</td>
+    <td>testArr.splice(2,0,"new1","new2")</td>
+    <td><%= testArr.splice(2,0,"new1","new2") %></td>
+    <td><%= testArr %></td>
+  </tr>
+  <% resetArr(); %>
+  <tr>
+    <td>替换且删除（起始位置，删除的个数，插入的项+）</td>
+    <td>testArr.splice(2,1,"new1","new2")</td>
+    <td><%= testArr.splice(2,1,"new1","new2") %></td>
+    <td><%= testArr %></td>
+  </tr>
+</table>

@@ -1,0 +1,39 @@
+<div class="alert_tip">
+   请查看源码和控制台。
+</div>
+<p>
+  function A(){};var a = new A();
+</p>
+<p>执行顺序如下：</p>
+<div class="alert_tip">
+  1.建立对象a。<br>
+  2.new操作符先建立a.__proto__，指向一个匿名对象A.prototype。<br>
+  3.然后才执行A构造函数，初始化对象a。<br>
+</div>
+PS:在执行A函数（第3步）时，如果A函数里面有更改A.prototype的指向，a的原型链是不会改变的。因为在第2步的的时候a的原型链已经建立好了。
+
+<script type="text/javascript">
+  // 如果采用动态原型方法来实现继承
+  function Base(){
+    if(!Base._init){
+      Base.prototype.testFunc = function(){
+        alert("extended.");
+      }
+      Base._init = true;
+    }
+  }
+
+  function Extend(){
+    if(!Extend._init){
+      Extend.prototype = new Base(); 
+      // 这里是想继承Base的原型链，但初次是继承不了的。
+      // 因为第一次执行的时候，prototype指向的还是一个匿名对象。
+      Extend._init = true;
+    }
+  }
+
+  var obj1 = new Extend();
+  var obj2 = new Extend();
+  console.log(obj1.testFunc); // 输出undefined.显然没有继承到。
+  console.log(obj2.testFunc); // 有输出值了。
+</script>
