@@ -1,0 +1,94 @@
+<style type="text/css">
+  .radio_container{
+    outline:1px solid purple;
+    position:relative;
+    height:4em;
+  }
+  .radio_container:hover{
+    /*z-index:9999;*/
+  }
+  .radio_options{
+    outline:1px solid green;
+    position:absolute;
+    /*max-height:3em;*/
+    overflow:hidden;
+    transition:0.7;
+  }
+  .radio_options:hover{
+    /*max-height:200em;*/
+  }
+  .radio_options .toggle {
+    position: relative;
+    cursor: pointer;
+    padding: 0.75em;
+    background: darkgreen;
+    border-radius: 10px;
+    z-index: 1; 
+  }
+  .radio_options li {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+  }
+  .radio_options label {
+    display: block;
+    opacity: 0;
+    transition: 0.7s; 
+  }
+  .radio_options input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index:0;
+    cursor: pointer; 
+  }
+  .radio_options:hover li {
+    position: relative;
+  }
+  .radio_options:hover label {
+    opacity: 1;
+    transition: 0.5s; 
+  }
+  .radio_options input:checked + label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 1;
+    /* is above the .toggle so is visible */
+    z-index: 2;
+    /* has tha same styles as .toggle */
+    padding: 0.75em;
+    background: darkgreen;
+    border-radius: 10px; 
+  }
+  .radio_options:hover input:checked ~ label {
+    position: static;
+    border-radius: 0; 
+  }
+</style>
+
+<fieldset class="radio_container">
+  <div class="radio_options">
+    <div class="toggle">Choose your option.</div>
+    <ul>
+      <li>
+        <input type="radio" name="value" id="value1">
+        <label for="value1">option A</label>
+      </li>
+      <li>
+        <input type="radio" name="value" id="value2">
+        <label for="value2">option B</label>
+      </li>
+      <li>
+        <input type="radio" name="value" id="value3">
+        <label for="value3">option C</label>
+      </li>
+    </ul>
+  </div>
+</fieldset>

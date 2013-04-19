@@ -1,0 +1,102 @@
+<!-- 来源于玉伯的一篇博客的讨论，地址：https://github.com/lifesinger/lifesinger.github.com/issues/113 -->
+<!DOCTYPE html>
+<script type="text/javascript">
+  // 我自己写的
+  // 缺点是过于冗长，且不能处理undefined
+  function unique_mine(arr){
+    var toDel = {};
+    var newarr = [];
+    var copy = [];
+    for(var i = 0; i <= arr.length; i++){
+      copy[i] = arr[i];
+      var item = arr[i];
+      for(var j = i+1; j <= arr.length; j++){
+        if(item === arr[j]){
+          if(!toDel[j]){
+            toDel[j] = 1;
+          }
+        }
+      }
+    }
+    for(var i in toDel){
+      delete copy[i];
+    }
+    for(var i in copy){
+      if(copy[i] !== undefined){
+        newarr.push(copy[i]);
+      }
+    }
+    return newarr;
+  }
+
+  // 最简单的方法
+  // 缺点是ie6-8不支持数组的indexOf方法
+  function unique_normal(arr) {
+    var ret = []
+
+    for (var i = 0; i < arr.length; i++) {
+      var item = arr[i]
+      if (ret.indexOf(item) === -1) {
+        ret.push(item)
+      }
+    }
+
+    return ret
+  }
+
+  // 修改后版本
+  // 冗长了，但功能上没有问题
+  function unique_normal_pro(arr) {
+    var indexOf = [].indexOf ? function(arr, item){
+      return arr.indexOf(item);
+    } :
+    function(arr, item){
+      for(var i = 0; i <= arr.length; i++){
+        if(arr[i] === item){
+          return i;
+        }
+      }
+      return -1;
+    };
+
+    var ret = []
+
+    for (var i = 0; i < arr.length; i++) {
+      var item = arr[i]
+      if (indexOf(ret, item) === -1) {
+        ret.push(item)
+      }
+    }
+
+    return ret
+  }
+
+  // 用hash表记录的办法
+  // 会误判new String(1)和new Number(1)为重复
+  function unique_hash(arr) {
+    var ret = [];
+    var hash = {};
+
+    for(var i = 0; i <= arr.length; i++){
+      var item = arr[i];
+      var key = typeof[item] + item;
+
+      if(!hash[key]){
+        ret.push(item);
+        hash[key] = true;
+      }
+    }
+
+    return ret;
+  }
+
+  function unique_test(){
+    var arr = ['a', 'b', 'c', 'c', '1', 0, 'c', 1, '', 1, 0];
+    console.log(arr); 
+    var result = unique(arr);
+    console.log(arr);
+    console.log(result);
+  }
+  unique = unique_mine;
+  unique_test();
+</script>

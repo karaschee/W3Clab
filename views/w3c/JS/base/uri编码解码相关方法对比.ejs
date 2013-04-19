@@ -1,0 +1,53 @@
+<h2>encodeURI, encodeURIComponent</h2>
+<table class="table_normal" style="word-break:break-all;">
+  <tr>
+    <th>数据</th>
+    <th>encodeURI</th>
+    <th>encodeURIComponent</th>
+  </tr>
+  <tr>
+    <% var a = "http://www.nbd.com.cn/?logout&aid=7&g=http://www.nbd.com.cn&content={\"key\":\"^<div>234</div>&nb sp;<p>3242 34</p>\"}" %>
+    <td><%= a %></td>
+    <td><%= encodeURI(a) %></td>
+    <td><%= encodeURIComponent(a) %></td>
+  </tr>
+  <tr>
+    <% var a = "!#$&'()*+,-./:;=?@_~" %>
+    <td><%= a %></td>
+    <td><%= encodeURI(a) %></td>
+    <td><%= encodeURIComponent(a) %></td>
+  </tr>
+</table>
+
+<h2>escape</h2>
+<table class="table_normal" style="word-break:break-all;">
+  <tr>
+    <th>数据</th>
+    <th>escape</th>
+  </tr>
+  <tr>
+    <script type="text/javascript">
+      var a = "http://www.nbd.com.cn/?logout&aid=7&g=http://www.nbd.com.cn&content={\"key\":\"^<div>234</div>&nb sp;<p>3242 34</p>\"}"
+    </script>
+    <td><script type="text/javascript">
+      document.write(a)
+    </script></td>
+    <td><script type="text/javascript">
+      document.write(escape(a))
+    </script></td>
+  </tr>
+  <tr>
+    <script type="text/javascript">
+      var a = "!#$&'()*+,-./:;=?@_~"
+    </script>
+    <td><script type="text/javascript">
+      document.write(a)
+    </script></td>
+    <td><script type="text/javascript">
+      document.write(escape(a))
+    </script></td>
+  </tr>
+</table>
+
+<h2>什么时候使用何种方法？</h2>
+<p> <a href="http://shijian0306.iteye.com/blog/241264">戳我前去</a> </p>
