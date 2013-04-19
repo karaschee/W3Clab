@@ -56,16 +56,31 @@
 <div class="alert_tip">
   所谓对象，在ECMAScript中，是由特性（attribute）构成的无序集合，每个特性存放一个原始值（属性property）、对象（属性）或者函数（方法method）. <br>
 </div>
-<p>
-  在Javascript中，只有null和undefined不是引用值，其它3个原始类型Number\String\Boolean在js上下文环境中都是以引用类型表现出来的。例如"(2).toString();"这样的表达方式都是正确的。这里的2其实是引用值，和new Number(2)是一样的。 <br>
-  我们称这3个类型的值为'伪对象',（看起来是原始值，其实可以作引用类型使用） <br>
-  就目前我的认知来看，除了null、undefined外还无法直接获得原始值.用js获得的所有“原始值”其实都是"伪对象".
-  如下关系表:
+<p class="quote">
+  根据《编写可维护的javascript》P52 <br>
+  Javascirpt中有3种「原始包装类型(Primitive Wrapper Types)」：String、Boolean、Number。每种类型都代表全局作用域中的一个构造函数，并分别表示各自对象对应的原始值的对象。原始包装类型的主要作用是让原始值具有对象般的行为。
 </p>
+<p>
+  在Javascript中，只有null和undefined不是对象，其它3个原始类型Number\String\Boolean在js上下文环境中都是以原始包装类型表现出来的。例如"(2).toString();"这样的表达方式都是正确的。这里的2其实是对象，和new Number(2)是一样的。 <br>
+  我们称这3个类型的值为'伪对象',（是原始值，但可以作引用类型使用） <br>
+  就目前我的认知来看，除了null、undefined外还无法直接获得原始值.用js获得的所有“原始值”其实都是"伪对象".
+</p>
+<div class="alert_tip">
+  原始包装类型是临时创建的。
+</div>
+<p>
+  // 来自《编写可维护的javascript》的例子
+  var name = "String"; <br>
+  name.getAProperty = true; // 获取一个临时对象，执行完后删除此对象 <br>
+  console.log(name.getAProperty); // undefined
+</p>
+<div class="alert_tip">
+  从以上例子可知，每次原始值调用方法或者属性的时候，都是<strong>临时</strong>获取一个原始包装类型的对象，然后调用该对象的方法和属性。从而表现出“伪对象”的特征
+</div>
 <table class="table_normal">
   <tr>
     <th>伪对象</th>
-    <th>引用类型</th>
+    <th>原始包装类型</th>
   </tr>
   <tr>
     <td>var numN = 23 (typeof:number)</td>
