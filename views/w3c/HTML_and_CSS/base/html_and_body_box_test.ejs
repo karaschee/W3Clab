@@ -16,7 +16,29 @@ chrome：
 margin padding 对 html body 皆有效。
 html也没有默认高度。
 滚动条从视觉上看与html无关，因为在其border外面。但是！通过修改html的overflow属性发现，这个滚动动条确实是属于html的。
-div为3000px时，html与body都被撑大了。注意，这是很有趣的一点，html的高被div撑大，足以容纳页面所有内容，但却还是有滚动条出现。这就是html的特殊之处。
+div为3000px时，html与body都被撑大了。
+
+以下是一些实验，设置html、body的overflow的属性
+环境（chrome、html和body限高100px），div高3000px
+
+html(visible)body(scroll\auto\visible)  body无滚动条、window有滚动条，window可以滚动
+html(visible)body(hidden)               body无滚动条、window无滚动条，window可以滚动
+
+html(hidden)body(hidden)                body无滚动条、window无滚动条，window无法滚动
+html(hidden)body(scroll\auto)           body有滚动条、window无滚动条，window无法滚动
+html(hidden)body(visible)               body无滚动条、window无滚动条，window可以滚动
+
+html(auto\scroll)body(visible)          body无滚动条、window有滚动条，window可以滚动
+html(auto\scroll)body(scroll\auto)      body有滚动条、window无滚动条，window无法滚动
+html(auto\scroll)body(hidden)           body无滚动条、window无滚动条，window无法滚动
+
+body有滚动条的条件：html(非visible)body(scroll\auto) 
+window（html）有滚动条的条件：html(visible)body(非hidden) 或者 html(auto\scroll)body(visible)
+window可以滚动的条件： html和body至少有一个有visible
+无任何滚动条且window不可以滚动的条件：html(非visible)body(hidden)
+body和html不会同时出现滚动条 
+
+注意，这是很有趣的一点，html的高被div撑大，足以容纳页面所有内容，但却还是有滚动条出现。这就是html的特殊之处。
 
 总结：对于ie6和chrome，滚动条都在html上。
 
@@ -32,8 +54,9 @@ html有背景色时，body与普通元素一样显示自己的背景色。
 	body { background:#069; margin:100px; padding:50px; border:30px solid #093;}*/
 
 	/*margin html*/
-	html { background:#eee; margin:100px; padding:50px; border:30px solid red; overflow-y:scroll; }
-	body { background:#069; margin:100px; padding:50px; border:30px solid #093; overflow:scroll;}
+  html, body { height: 100px; }
+	html { background:#eee; margin:10px; padding:10px; border:2px solid red; overflow-y:scroll; }
+	body { background:#069; margin:10px; padding:10px; border:2px solid #093; overflow:scroll;}
 
 	/*div on off*/
 	div { height:3000px; }
